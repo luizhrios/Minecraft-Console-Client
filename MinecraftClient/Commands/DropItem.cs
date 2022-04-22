@@ -38,7 +38,9 @@ namespace MinecraftClient.Commands
                     int[] targetItems = p.SearchItem(itemType);
                     foreach (int slot in targetItems)
                     {
-                        handler.DoWindowAction(inventoryId, slot, WindowActionType.DropItemStack);
+
+                        if (!new int[] { 5, 6, 7, 8, 36, 44 }.Contains(slot))
+                            handler.DoWindowAction(inventoryId, slot, WindowActionType.DropItemStack);
                     }
                     return Translations.Get("cmd.dropItem.dropped", itemType.ToString(), inventoryId);
                 }

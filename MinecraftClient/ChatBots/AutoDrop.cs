@@ -215,7 +215,7 @@ namespace MinecraftClient.ChatBots
                         // Ingore crafting result slot
                         if (item.Key == 0)
                             continue;
-                        if (itemList.Contains(item.Value.Type))
+                        if (itemList.Contains(item.Value.Type) && !new int[] { 5, 6, 7, 8, 36, 44 }.Contains(item.Key))
                         {
                             // Drop it !!
                             WindowAction(inventoryUpdated, item.Key, WindowActionType.DropItemStack);
