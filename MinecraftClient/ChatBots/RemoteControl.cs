@@ -29,11 +29,12 @@ namespace MinecraftClient.ChatBots
                     SendPrivateMessage(sender, response);
                 }
             }
-            else if (Settings.RemoteCtrl_AutoTpaccept
-                && IsTeleportRequest(text, ref sender)
-                && (Settings.RemoteCtrl_AutoTpaccept_Everyone || Settings.Bots_Owners.Contains(sender.ToLower().Trim())))
+            else if (Settings.RemoteCtrl_AutoTpaccept && IsTeleportRequest(text, ref sender))
             {
-                SendText("/tpaccept");
+                if (Settings.RemoteCtrl_AutoTpaccept_Everyone || Settings.Bots_Owners.Contains(sender.ToLower().Trim()))
+                    SendText("/tpaccept");
+                else
+                    SendText("/tpdeny");
             }
         }
     }
