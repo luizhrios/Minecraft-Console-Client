@@ -85,6 +85,7 @@ namespace MinecraftClient.ChatBots
                 }
             }
             if (found) UseItemInHand();
+            else SendText("/gc I need food!");
             return found;
         }
     }
