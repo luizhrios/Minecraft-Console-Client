@@ -63,6 +63,7 @@ namespace MinecraftClient.ChatBots
             Container inventory = GetPlayerInventory();
             bool found = false;
             byte CurrentSlot = GetCurrentSlot();
+            int emptyHotbarSlot = -1;
             if (!Eating)
                 LastSlot = CurrentSlot;
             if (inventory.Items.ContainsKey(CurrentSlot + 36) && inventory.Items[CurrentSlot + 36].Type.IsFood())
@@ -74,13 +75,38 @@ namespace MinecraftClient.ChatBots
             {
                 for (int i = 36; i <= 44; i++)
                 {
-                    if (!inventory.Items.ContainsKey(i)) continue;
+                    if (!inventory.Items.ContainsKey(i)) {
+                        emptyHotbarSlot = i;
+                        continue;
+                    };
                     if (inventory.Items[i].Type.IsFood())
                     {
                         int slot = i - 36;
                         ChangeSlot((short)slot);
                         found = true;
                         break;
+                    }
+                }
+                if(!found)
+				{
+                    for (int i = 9; i <= 35; i++)
+                    {
+                        
+                        if (!inventory.Items.ContainsKey(i)) continue;
+                        if (inventory.Items[i].Type.IsFood())
+                        {
+                            if(emptyHotbarSlot == -1)
+							{
+                                emptyHotbarSlot = 37;
+                                PerformInternalCommand(string.Format("inventory 0 click {0}", emptyHotbarSlot));
+                            }
+                            PerformInternalCommand(string.Format("inventory 0 click {0}", i));
+                            PerformInternalCommand(string.Format("inventory 0 click {0}", emptyHotbarSlot));
+                            int slot = emptyHotbarSlot - 36;
+                            ChangeSlot((short)slot);
+                            found = true;
+                            break;
+                        }
                     }
                 }
             }
