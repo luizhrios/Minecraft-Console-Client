@@ -111,9 +111,6 @@ namespace MinecraftClient.ChatBots
                 }
             }
             if (found) UseItemInHand();
-            else
-                if (!GetPlayerInventory().Items.ContainsKey(5) || GetVerbatim(GetPlayerInventory().Items[5].DisplayName) != "DragonCry")
-                    SendText("/gc I need food!");
             return found;
         }
     }
