@@ -96,6 +96,8 @@ namespace MinecraftClient.ChatBots
 					if (Settings.Username.Contains(matches[2].Value))
 						if (matches[3].Value == "tpa")
 							SendText(string.Format("/tpahere {0}", matches[1].Value));
+						else if (matches[3].Value = "!equiphead"))
+							GetItemMovingHelper(GetPlayerInventory()).Swap(36, 5);
 				}
 				else if (text == string.Format("[+] {0}", Settings.Username)) BotJoined();
 			}
